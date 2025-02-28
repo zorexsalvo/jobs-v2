@@ -30,6 +30,7 @@ COPY . .
 
 # Run Django migrations and collect static files
 RUN python manage.py migrate
+RUN mkdir -p staticfiles
 RUN python manage.py collectstatic --noinput
 
 # Expose port
