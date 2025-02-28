@@ -44,13 +44,20 @@ source venv/bin/activate
 
 ```bash
 pip install -r requirements.txt
+npm i -D daisyui@latest
 ```
 
-4. Run the development server
+4. Build Tailwind CSS
+
+```bash
+python manage.py tailwind build
+```
+
+5. Run the development server
 
 ```bash
 python manage.py runserver
 ```
 
-5. Open your browser and navigate to `http://localhost:8000`
+6. Open your browser and navigate to `http://localhost:8000`
 
