@@ -1,0 +1,7 @@
+# Development & testing dependencies
+Faker>=22.0.0
+# Add other development dependencies here like:
+# pytest
+# black
+# flake8
+# django-debug-toolbar 

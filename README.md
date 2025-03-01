@@ -1,3 +1,145 @@
+# Python.PH Jobs Board
+
+A job board platform for Python developers in the Philippines.
+
+## Development Setup
+
+### Using Docker (Recommended)
+
+1. Clone the repository
+```bash
+git clone <repository-url>
+cd <project-directory>
+```
+
+2. Build and run with Docker Compose
+```bash
+docker-compose up --build
+```
+
+The site will be available at `http://localhost:8000`
+
+### Manual Setup
+
+1. Clone the repository
+```bash
+git clone <repository-url>
+cd <project-directory>
+```
+
+2. Create and activate a virtual environment
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+```
+
+3. Install dependencies
+```bash
+# For development (includes all dependencies)
+pip install -r requirements.txt
+
+# For production (only production dependencies)
+pip install -r requirements.txt --no-deps
+```
+
+4. Run migrations
+```bash
+python manage.py migrate
+```
+
+5. Install and build Tailwind CSS
+```bash
+python manage.py tailwind install
+python manage.py tailwind build
+```
+
+## Project Dependencies
+
+The project uses separate requirements files for production and development:
+
+- `requirements.txt`: Contains production dependencies
+- `requirements-dev.txt`: Contains development and testing dependencies
+
+### Production Dependencies
+- Django>=5.0.0
+- django-tailwind>=3.8.0
+
+### Development Dependencies
+- Faker>=22.0.0
+
+## Development
+
+### Populating Sample Data
+
+The project includes a management command to populate the database with sample job listings using Faker:
+
+```bash
+# Create default 20 jobs
+python manage.py populate_jobs
+
+# Or specify a custom number of jobs
+python manage.py populate_jobs --count 50
+```
+
+The command will generate realistic job listings with:
+- Tech job titles with seniority levels
+- Company names
+- Locations in major Philippine cities
+- Salary ranges in PHP
+- Detailed job descriptions
+- Remote work status
+
+### Running the Development Server
+
+```bash
+# Using Docker
+docker-compose up
+
+# Manual
+python manage.py runserver
+```
+
+### Docker Commands
+
+```bash
+# Build and start services
+docker-compose up --build
+
+# Start services in background
+docker-compose up -d
+
+# Stop services
+docker-compose down
+
+# View logs
+docker-compose logs -f
+
+# Run commands in container
+docker-compose exec web python manage.py migrate
+docker-compose exec web python manage.py populate_jobs
+```
+
+## Features
+
+- Job listings with detailed information
+- Tailwind CSS with DaisyUI for styling
+- Responsive design
+- Sample data generation
+- Docker support for easy development and deployment
+- Separate production and development dependencies
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+[Add your license information here]
+
 # Jobs V2
 
 A job platform built with Django, Django REST Framework, and Tailwind CSS.

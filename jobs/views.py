@@ -1,7 +1,7 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import ListView 
+from django.contrib.auth.models import User
 
-# Create your views here.
 
-class JobIndexView(TemplateView):
+class JobIndexView(ListView):
+    model = User
     template_name = "index.html"
