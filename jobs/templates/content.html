@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<!-- Stats -->
+
 <div class="stats shadow w-full mb-8">
     <div class="stat">
         <div class="stat-title">Python Jobs</div>
@@ -34,7 +34,6 @@
                 <div>
                     <h2 class="card-title">{{ job.title }}</h2>
                     <p class="text-base-content/70">{{ job.company_name }}</p>
-                    <p class="text-base-content/70">Location: {{ job.location }}</p>
                 </div>
             </div>
             <div class="flex gap-2 mt-4">
@@ -44,7 +43,7 @@
                 <div class="badge badge-outline">Remote</div>
             </div>
             <p class="mt-4 text-base-content/70">
-                {{ job.description|linebreaks }}
+                {{ job.short_description }}
             </p>
             <div class="card-actions justify-end mt-4">
                 <button class="btn btn-primary">Apply Now</button>

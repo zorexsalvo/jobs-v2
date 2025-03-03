@@ -31,7 +31,7 @@ class Command(BaseCommand):
         ]
 
         companies = [fake.company() for _ in range(10)]  # Generate a pool of companies
-        
+
         # Philippine cities
         ph_cities = [
             'Manila', 'Makati', 'BGC', 'Ortigas', 'Quezon City', 'Cebu City',
@@ -43,18 +43,19 @@ class Command(BaseCommand):
             # Generate salary range (in thousands)
             min_salary = random.randint(40, 200)
             max_salary = min_salary + random.randint(20, 100)
-            
+
             # Randomly decide seniority
             seniority = random.choice(['Junior', 'Mid-Level', 'Senior', 'Lead'])
-            
+
             # Combine seniority with random tech role
             title = f"{seniority} {random.choice(tech_roles)}"
-            
+
             job = Job.objects.create(
                 title=title,
                 company_name=random.choice(companies),
                 location=random.choice(ph_cities),
                 salary_range=f'₱{min_salary:,},000 - ₱{max_salary:,},000',
+                short_description=fake.sentence(nb_words=15),
                 description='\n'.join([
                     fake.paragraph(),
                     '\nKey Responsibilities:\n',
