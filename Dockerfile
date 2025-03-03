@@ -26,6 +26,7 @@ COPY . .
 
 # Install Tailwind dependencies and build
 RUN python manage.py tailwind install
+RUN npm i tailwindcss daisyui@latest
 RUN python manage.py tailwind build
 
 # Run the application
