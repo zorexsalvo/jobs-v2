@@ -1,146 +1,4 @@
-# Python.PH Jobs Board
-
-A job board platform for Python developers in the Philippines.
-
-## Development Setup
-
-### Using Docker (Recommended)
-
-1. Clone the repository
-```bash
-git clone <repository-url>
-cd <project-directory>
-```
-
-2. Build and run with Docker Compose
-```bash
-docker-compose up --build
-```
-
-The site will be available at `http://localhost:8000`
-
-### Manual Setup
-
-1. Clone the repository
-```bash
-git clone <repository-url>
-cd <project-directory>
-```
-
-2. Create and activate a virtual environment
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
-```
-
-3. Install dependencies
-```bash
-# For development (includes all dependencies)
-pip install -r requirements.txt
-
-# For production (only production dependencies)
-pip install -r requirements.txt --no-deps
-```
-
-4. Run migrations
-```bash
-python manage.py migrate
-```
-
-5. Install and build Tailwind CSS
-```bash
-python manage.py tailwind install
-python manage.py tailwind build
-```
-
-## Project Dependencies
-
-The project uses separate requirements files for production and development:
-
-- `requirements.txt`: Contains production dependencies
-- `requirements-dev.txt`: Contains development and testing dependencies
-
-### Production Dependencies
-- Django>=5.0.0
-- django-tailwind>=3.8.0
-
-### Development Dependencies
-- Faker>=22.0.0
-
-## Development
-
-### Populating Sample Data
-
-The project includes a management command to populate the database with sample job listings using Faker:
-
-```bash
-# Create default 20 jobs
-python manage.py populate_jobs
-
-# Or specify a custom number of jobs
-python manage.py populate_jobs --count 50
-```
-
-The command will generate realistic job listings with:
-- Tech job titles with seniority levels
-- Company names
-- Locations in major Philippine cities
-- Salary ranges in PHP
-- Detailed job descriptions
-- Remote work status
-
-### Running the Development Server
-
-```bash
-# Using Docker
-docker-compose up
-
-# Manual
-python manage.py runserver
-```
-
-### Docker Commands
-
-```bash
-# Build and start services
-docker-compose up --build
-
-# Start services in background
-docker-compose up -d
-
-# Stop services
-docker-compose down
-
-# View logs
-docker-compose logs -f
-
-# Run commands in container
-docker-compose exec web python manage.py migrate
-docker-compose exec web python manage.py populate_jobs
-```
-
-## Features
-
-- Job listings with detailed information
-- Tailwind CSS with DaisyUI for styling
-- Responsive design
-- Sample data generation
-- Docker support for easy development and deployment
-- Separate production and development dependencies
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-[Add your license information here]
-
-# Jobs V2
+# PythonPH Jobs Board
 
 A job platform built with Django, Django REST Framework, and Tailwind CSS.
 
@@ -180,11 +38,11 @@ make down           # Stop the application
 make logs           # View logs
 make shell          # Access container shell
 make django-shell   # Access Django shell
-make test           # Run tests
 make migrate        # Run migrations
 make makemigrations # Create migrations
 make static         # Collect static files
 make clean          # Remove all containers and images
+make twbuild        # Rebuild Tailwind CSS files
 ```
 
 ### Manual Setup
@@ -193,9 +51,10 @@ If you prefer to run without Docker:
 
 #### Prerequisites
 
-- Python 3.x
+- Python 3.11 or higher
 - pip (Python package manager)
-- Node.js and npm (for Tailwind CSS)
+- Node.js 18+ and npm (for Tailwind CSS)
+- PostgreSQL 15+
 
 #### Installation Steps
 
@@ -210,7 +69,7 @@ cd jobs-v2
 
 ```bash
 python -m venv venv
-source venv/bin/activate
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
 ```
 
 3. Install dependencies
@@ -220,29 +79,41 @@ pip install -r requirements.txt
 npm i -D daisyui@latest
 ```
 
-4. Build Tailwind CSS
+4. Set up environment variables
+
+Create a `.env` file in the project root:
+```bash
+DEBUG=1
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/jobs_v2
+POSTGRES_DB=jobs_v2
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+```
+
+5. Setup database and static files
 
 ```bash
+python manage.py migrate
+python manage.py tailwind install
 python manage.py tailwind build
 ```
 
-5. Run the development server
+6. Run the development server
 
 ```bash
 python manage.py runserver
 ```
 
-6. Open your browser and navigate to `http://localhost:8000`
+7. Open your browser and navigate to `http://localhost:8000`
 
-## 🛠️ Project Structure
+## 📦 Tech Stack
 
-jobs_v2/
-├── jobs/ # Job listings and management
-├── users/ # User authentication and profiles
-├── Dockerfile          # Docker configuration
-├── docker-compose.yml  # Docker services configuration
-├── Makefile           # Development commands
-└── requirements.txt    # Python dependencies
+- Django 5.1.6
+- Django REST Framework 3.15.2
+- django-allauth 0.65.4
+- Tailwind CSS with DaisyUI
+- PostgreSQL 15
+- Docker & Docker Compose
 
 ## 🌟 Features
 
@@ -283,5 +154,49 @@ You can override these by creating a `.env` file in the project root.
 - Database data persists between container restarts via Docker volumes
 - Use `make logs` to view application logs in real-time
 - Access the Django shell with `make django-shell` for debugging
-- Run tests with `make test`
+
+## ❓ FAQ
+
+### Static files not loading properly?
+
+There is a known issue with building static files during initial setup. If you encounter this issue:
+
+1. Start the application normally:
+```bash
+make up
+```
+
+2. Then run the Tailwind build command:
+```bash
+make twbuild
+```
+
+This will rebuild the static files and resolve the styling issues.
+
+### Database connection issues?
+
+If you're having trouble connecting to the database:
+
+1. Ensure PostgreSQL is running
+2. Check your environment variables
+3. Try resetting the database:
+```bash
+make down
+docker volume rm jobs-v2_postgres_data
+make up
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+Please make sure to follow the existing coding style.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 

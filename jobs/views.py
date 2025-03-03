@@ -1,15 +1,13 @@
-from django.views.generic import ListView 
-from django.contrib.auth.models import User
-from django.shortcuts import render
-from . import models
+from django.views.generic import ListView
+from .models import Job
 
-def populate_content(request):
-    jobs_query = models.Job.objects.all()
-    return render(
-        request,
-        'content.html',
-        {
-            'jobs': jobs_query,
-            'jobs_count': jobs_query.count()
-        }
-    )
+
+class JobIndex(ListView):
+    model = Job
+    template_name = "content.html"
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["count"] = self.get_queryset().count()
+        return context

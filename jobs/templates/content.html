@@ -4,7 +4,7 @@
 <div class="stats shadow w-full mb-8">
     <div class="stat">
         <div class="stat-title">Python Jobs</div>
-        <div class="stat-value">{{ jobs_count }}</div>
+        <div class="stat-value">{{ count }}</div>
         <div class="stat-desc">↗︎ 400 (22%)</div>
     </div>
     <div class="stat">
@@ -26,8 +26,7 @@
 
 <!-- Job Listings -->
 <div class="space-y-4">
-    {% for job in jobs %}
-    <!-- Job Card -->
+    {% for job in object_list %}
     <div class="card bg-base-100 shadow-sm hover:shadow-md transition-all">
         <div class="card-body">
             <div class="flex justify-between items-start">
@@ -37,6 +36,7 @@
                 </div>
             </div>
             <div class="flex gap-2 mt-4">
+                <div class="badge badge-outline">{{ job.location }}</div>
                 <div class="badge badge-outline">Python</div>
                 <div class="badge badge-outline">FastAPI</div>
                 <div class="badge badge-outline">PostgreSQL</div>
@@ -51,5 +51,6 @@
         </div>
     </div>
     {% endfor %}
+    {% include 'pagination.html' %}
 </div>
 {% endblock %}
