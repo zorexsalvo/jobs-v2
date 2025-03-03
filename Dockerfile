@@ -25,8 +25,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Install Tailwind dependencies and build
+RUN npm i
 RUN python manage.py tailwind install
-RUN npm i tailwindcss daisyui@latest
 RUN python manage.py tailwind build
 
 # Run the application
