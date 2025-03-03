@@ -36,58 +36,7 @@
     </div>
 
     <div class="container mx-auto px-4 py-8 max-w-5xl">
-        <!-- Stats -->
-        <div class="stats shadow w-full mb-8">
-            <div class="stat">
-                <div class="stat-title">Python Jobs</div>
-                <div class="stat-value">1,234</div>
-                <div class="stat-desc">↗︎ 400 (22%)</div>
-            </div>
-            <div class="stat">
-                <div class="stat-title">PH Tech Companies</div>
-                <div class="stat-value">567</div>
-                <div class="stat-desc">↗︎ 90 (14%)</div>
-            </div>
-            <div class="stat">
-                <div class="stat-title">Python Developers</div>
-                <div class="stat-value">89k</div>
-                <div class="stat-desc">↗︎ 10k (30%)</div>
-            </div>
-        </div>
-
-        <!-- Search Section -->
-        <div class="form-control mb-8">
-            <input type="text" placeholder="Search jobs..." class="input input-bordered w-full" />
-        </div>
-
-        <!-- Job Listings -->
-        <div class="space-y-4">
-            {% for job in jobs %}
-            <!-- Job Card -->
-            <div class="card bg-base-100 shadow-sm hover:shadow-md transition-all">
-                <div class="card-body">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h2 class="card-title">{{ job.title }}</h2>
-                            <p class="text-base-content/70">{{ job.company_name }}</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-2 mt-4">
-                        <div class="badge badge-outline">Python</div>
-                        <div class="badge badge-outline">FastAPI</div>
-                        <div class="badge badge-outline">PostgreSQL</div>
-                        <div class="badge badge-outline">Remote</div>
-                    </div>
-                    <p class="mt-4 text-base-content/70">
-                        {{ job.description|linebreaks }}
-                    </p>
-                    <div class="card-actions justify-end mt-4">
-                        <button class="btn btn-primary">Apply Now</button>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
+        {% block content %} {% endblock %}
     </div>
 
     <!-- Footer -->
