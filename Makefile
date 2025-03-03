@@ -44,6 +44,11 @@ clean: ## Remove all containers, volumes, and images
 ps: ## Show running containers
 	docker compose ps
 
+twbuild:
+	docker compose exec web npm i
+	docker compose exec web python manage.py tailwind install
+	docker compose exec web python manage.py tailwind build
+	docker compose restart
 
 twstart:
 	docker compose exec web python manage.py tailwind start
