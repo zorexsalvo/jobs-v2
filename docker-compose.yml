@@ -3,13 +3,7 @@ services:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./db.sqlite3:/app/db.sqlite3
-      - ./Makefile:/app/Makefile
-      - ./theme:/app/theme
-      - ./users:/app/users
-      - ./jobs:/app/jobs
-      - ./jobs_v2:/app/jobs_v2
-      - ./manage.py:/app/manage.py
+      - .:/app
     ports:
       - "8000:8000"
     environment:
