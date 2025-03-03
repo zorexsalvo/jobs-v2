@@ -1,6 +1,6 @@
 from django.urls import path
-from . import views
+from .views import JobIndex
 
 urlpatterns = [
-    path('', views.populate_content, name='job_index'),
+    path('', JobIndex.as_view(), name='job_index'),
 ] 
