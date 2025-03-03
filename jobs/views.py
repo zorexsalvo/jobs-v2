@@ -4,6 +4,5 @@ from django.shortcuts import render
 from . import models
 
 def populate_content(request):
-    job_query = models.Job.objects.all()
-    print(job_query)
-    return render(request, 'content.html', { 'jobs': job_query })
+    jobs_query = models.Job.objects.all()
+    return render(request, 'content.html', { 'jobs': jobs_query, 'jobs_count': jobs_query.count() })
