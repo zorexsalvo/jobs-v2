@@ -44,7 +44,6 @@ clean: ## Remove all containers, volumes, and images
 ps: ## Show running containers
 	docker compose ps
 
-
 twstart:
 	docker compose exec web python manage.py tailwind start
 
