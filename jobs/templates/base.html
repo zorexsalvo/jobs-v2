@@ -30,36 +30,17 @@
                 <li><a>Companies</a></li>
             </ul>
         </div>
+        {% if user.is_authenticated %}
         <div class="navbar-end">
-            <a class="btn btn-primary">Post a Job</a>
+          <a class="btn btn-primary" href="{% url 'admin:jobs_job_add' %}">Post a Job</a>
         </div>
+        {% endif %}
     </div>
 
     <div class="container mx-auto px-4 py-8 max-w-5xl">
         {% block content %} {% endblock %}
     </div>
 
-    <!-- Footer -->
-    <footer class="footer p-10 bg-base-200 text-base-content mt-16">
-        <nav>
-            <h6 class="footer-title">Jobs</h6> 
-            <a class="link link-hover">Browse All</a>
-            <a class="link link-hover">Remote Jobs</a>
-            <a class="link link-hover">Featured</a>
-            <a class="link link-hover">Latest</a>
-        </nav> 
-        <nav>
-            <h6 class="footer-title">Company</h6> 
-            <a class="link link-hover">About us</a>
-            <a class="link link-hover">Contact</a>
-            <a class="link link-hover">Press kit</a>
-        </nav> 
-        <nav>
-            <h6 class="footer-title">Legal</h6> 
-            <a class="link link-hover">Terms of use</a>
-            <a class="link link-hover">Privacy policy</a>
-            <a class="link link-hover">Cookie policy</a>
-        </nav>
-    </footer>
+    {% include 'footer.html' %}
 </body>
 </html> 
