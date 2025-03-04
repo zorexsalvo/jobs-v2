@@ -9,6 +9,10 @@ services:
     environment:
       - DEBUG=1
       - DJANGO_SETTINGS_MODULE=jobs_v2.settings
+      - POSTGRES_DB=jobsdb
+      - POSTGRES_USER=jobsuser
+      - POSTGRES_PASSWORD=jobspassword
+      - POSTGRES_HOST=db
     depends_on:
       - db
 

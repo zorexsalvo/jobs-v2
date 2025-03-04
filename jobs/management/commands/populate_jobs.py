@@ -55,7 +55,7 @@ class Command(BaseCommand):
                 company_name=random.choice(companies),
                 location=random.choice(ph_cities),
                 salary_range=f'₱{min_salary:,},000 - ₱{max_salary:,},000',
-                short_description=fake.sentence(nb_words=15),
+                short_description=fake.sentence(nb_words=15)[:100],
                 description='\n'.join([
                     fake.paragraph(),
                     '\nKey Responsibilities:\n',

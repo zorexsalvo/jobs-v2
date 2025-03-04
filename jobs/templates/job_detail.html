@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <!-- Job Header -->
+    <div class="card bg-base-100 shadow-lg mb-8">
+        <div class="card-body">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h1 class="text-3xl font-bold mb-2">{{ job.title }}</h1>
+                    <h2 class="text-xl text-base-content/70 mb-4">{{ job.company_name }}</h2>
+                    
+                    <div class="flex gap-2 flex-wrap mb-4">
+                        <div class="badge badge-outline">{{ job.location }}</div>
+                        {% if job.is_remote %}
+                            <div class="badge badge-primary">Remote</div>
+                        {% endif %}
+                        <div class="badge badge-outline">{{ job.salary_range }}</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary">Apply Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Job Description -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2">
+            <div class="card bg-base-100 shadow-lg">
+                <div class="card-body prose max-w-none">
+                    <h2 class="card-title mb-4">Job Description</h2>
+                    <div class="whitespace-pre-line">{{ job.description }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="space-y-8">
+            <!-- Job Details -->
+            <div class="card bg-base-100 shadow-lg">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">Job Details</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="font-semibold">Location</h3>
+                            <p class="text-base-content/70">{{ job.location }}</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Salary Range</h3>
+                            <p class="text-base-content/70">{{ job.salary_range }}</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Work Type</h3>
+                            <p class="text-base-content/70">{% if job.is_remote %}Remote{% else %}On-site{% endif %}</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Posted</h3>
+                            <p class="text-base-content/70">{{ job.created_at|date:"F j, Y" }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Jobs -->
+            {% if related_jobs %}
+            <div class="card bg-base-100 shadow-lg">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">More from {{ job.company_name }}</h2>
+                    <div class="space-y-4">
+                        {% for related_job in related_jobs %}
+                        <a href="{% url 'job_detail' related_job.pk %}" class="block hover:bg-base-200 p-4 rounded-lg transition-colors">
+                            <h3 class="font-semibold">{{ related_job.title }}</h3>
+                            <p class="text-base-content/70">{{ related_job.location }}</p>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %} 
