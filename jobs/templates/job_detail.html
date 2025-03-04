@@ -8,7 +8,7 @@
                 <div>
                     <h1 class="text-3xl font-bold mb-2">{{ job.title }}</h1>
                     <h2 class="text-xl text-base-content/70 mb-4">{{ job.company_name }}</h2>
-                    
+
                     <div class="flex gap-2 flex-wrap mb-4">
                         <div class="badge badge-outline">{{ job.location }}</div>
                         {% if job.is_remote %}
@@ -28,7 +28,7 @@
             <div class="card bg-base-100 shadow-lg">
                 <div class="card-body prose max-w-none">
                     <h2 class="card-title mb-4">Job Description</h2>
-                    <div class="whitespace-pre-line">{{ job.description }}</div>
+                    <div class="whitespace-pre-line">{{ job.description|linebreaks }}</div>
                 </div>
             </div>
         </div>

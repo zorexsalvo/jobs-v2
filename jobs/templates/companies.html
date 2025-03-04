@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load jobs_extras %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-8">Companies</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for company in companies %}
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title">{{ company.company_name }}</h2>
+                <p class="text-sm text-gray-600">{{ company.job_count }} {% if company.job_count == 1 %}job{% else %}jobs{% endif %} posted</p>
+                
+                <div class="divider"></div>
+                
+                <div class="space-y-4">
+                    <h3 class="font-semibold">Latest Jobs</h3>
+                    {% with jobs=company_jobs|get_item:company.company_name %}
+                        {% for job in jobs %}
+                        <div class="bg-base-200 p-4 rounded-lg">
+                            <a href="{% url 'job_detail' job.pk %}" class="link link-hover">
+                                <h4 class="font-medium">{{ job.title }}</h4>
+                                <p class="text-sm text-gray-600">
+                                    {% if job.is_remote %}Remote{% else %}{{ job.location }}{% endif %}
+                                    • {{ job.salary_range }}
+                                </p>
+                            </a>
+                        </div>
+                        {% empty %}
+                        <p class="text-gray-500">No jobs currently listed</p>
+                        {% endfor %}
+                    {% endwith %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-full text-center py-8">
+            <p class="text-gray-500">No companies found</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 

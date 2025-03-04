@@ -9,34 +9,7 @@
 </head>
 <body>
     <!-- Navbar -->
-    <div class="navbar bg-base-100 shadow-sm">
-        <div class="navbar-start">
-            <div class="dropdown">
-                <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
-                    </svg>
-                </div>
-                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                  <li><a href="{% url 'admin:jobs_job_changelist' %}">Browse Jobs</a></li>
-                  <li><a href="{% url 'admin:jobs_job_changelist' %}">Companies</a></li>
-                </ul>
-            </div>
-            <a class="btn btn-ghost text-xl">Python.PH Jobs Board</a>
-        </div>
-        <div class="navbar-center hidden lg:flex">
-            <ul class="menu menu-horizontal px-1">
-              <li><a href="{% url 'admin:jobs_job_changelist' %}">Browse Jobs</a></li>
-              <li><a href="{% url 'admin:jobs_job_changelist' %}">Companies</a></li>
-            </ul>
-        </div>
-        {% if user.is_authenticated %}
-        <div class="navbar-end">
-          <a class="btn btn-primary" href="{% url 'admin:jobs_job_add' %}">Post a Job</a>
-        </div>
-        {% endif %}
-    </div>
-
+    {% include 'navbar.html' %}
     <div class="container mx-auto px-4 py-8 max-w-5xl">
         {% block content %} {% endblock %}
     </div>

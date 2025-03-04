@@ -1,5 +1,5 @@
 from django.views.generic import ListView, DetailView
-from django.db.models import Q
+from django.db.models import Q, Count, Max
 from .models import Job
 
 
@@ -36,4 +36,33 @@ class JobDetail(DetailView):
         context["related_jobs"] = Job.objects.filter(
             company_name=self.object.company_name
         ).exclude(id=self.object.id)[:3]
+        return context
+
+class CompanyList(ListView):
+    model = Job
+    template_name = "companies.html"
+    context_object_name = 'companies'
+
+    def get_queryset(self):
+        # Get unique companies with their job counts and latest job
+        companies = (
+            Job.objects.values('company_name')
+            .annotate(
+                job_count=Count('id'),
+                latest_job=Max('created_at')
+            )
+            .order_by('company_name')
+        )
+        return companies
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Get the latest job for each company
+        company_jobs = {}
+        for company in context['companies']:
+            latest_jobs = Job.objects.filter(
+                company_name=company['company_name']
+            ).order_by('-created_at')[:3]
+            company_jobs[company['company_name']] = latest_jobs
+        context['company_jobs'] = company_jobs
         return context
